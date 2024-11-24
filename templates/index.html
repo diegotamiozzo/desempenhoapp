@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload e Análise CSV</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Monitor de Desempenho</h1>
+
+        <!-- Formulário -->
+        <form method="post" enctype="multipart/form-data" action="{{ url_for('index') }}">
+            <div class="file-input-wrapper">
+                <input type="file" id="csv_file" name="csv_file" accept=".csv" required onchange="updateFileName(this)">
+                <label for="csv_file" id="file-label">Escolher Ficheiro</label>
+            </div>            
+            <div class="form-group">
+                <label for="numero_entrada">Número da Entrada:</label>
+                <input type="number" id="numero_entrada" name="numero_entrada" min="1" max="4" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="data_inicial">Data Inicial:</label>
+                <input type="date" id="data_inicial" name="data_inicial" required>
+            </div>
+            <div class="form-group">
+                <label for="data_final">Data Final:</label>
+                <input type="date" id="data_final" name="data_final" required>
+            </div>
+            <div class="form-group">
+                <label for="potencia_cv">Potência (CV):</label>
+                <input type="number" min="1" step="0.5" id="potencia_cv" name="potencia_cv" required>
+            </div>
+            <div class="form-group">
+                <label for="custo_por_kwh">Custo por kWh (R$/KWh):</label>
+                <input type="number" min="0" step="0.01" id="custo_por_kwh" name="custo_por_kwh" required>
+            </div>
+            <button type="submit" class="btn">Enviar</button>
+        </form>
+        <!-- Link para download do PDF -->
+        <div class="download-link">
+            <a href="/download_pdf" class="btn-download">Baixar Gráfico em PDF</a>
+        </div>
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>Diego Tamiozzo | Acadêmico do Curso Ciência dos Dados | UFMS</p>
+    </div>
+</footer>
+</div>
+<script>
+    function updateFileName(input) {
+        const label = document.getElementById('file-label');
+        if (input.files && input.files[0]) {
+            label.textContent = input.files[0].name; 
+        } else {
+            label.textContent = 'Escolher Ficheiro'; 
+        }
+    }
+</script>
+</body>
+</html> 
